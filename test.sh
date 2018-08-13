@@ -4,12 +4,7 @@ function doSomething()
         local lock="/tmp/do.lock"
         touch $lock
         (
-                docker run -t ferrishu3886/yggdrasil_env /bin/sh -c "git clone https://github.com/xxks-kkk/yggdrasil.git; cd yggdrasil; git checkout code-reading; make"
-                docker run -t ferrishu3886/yggdrasil_env /bin/sh -c "git clone https://github.com/xxks-kkk/yggdrasil.git; cd yggdrasil; make; python test_waldisk.py"
-                docker run -t ferrishu3886/yggdrasil_env /bin/sh -c "git clone https://github.com/xxks-kkk/yggdrasil.git; cd yggdrasil; make; python test_xv6inode.py"
-                docker run -t ferrishu3886/yggdrasil_env /bin/sh -c "git clone https://github.com/xxks-kkk/yggdrasil.git; cd yggdrasil; make; python test_dirspec.py"
-                docker run -t ferrishu3886/yggdrasil_env /bin/sh -c "git clone https://github.com/xxks-kkk/yggdrasil.git; cd yggdrasil; make; python test_bitmap.py"
-                docker run -t ferrishu3886/yggdrasil_env /bin/sh -c "git clone https://github.com/xxks-kkk/yggdrasil.git; cd yggdrasil; make; python test_partition.py"
+                docker run -t ferrishu3886/yggdrasil_env /bin/sh -c "git clone https://github.com/xxks-kkk/yggdrasil.git; cd yggdrasil; make verify"            
 
                 echo $? > $retTmp
                 rm -f $lock;
