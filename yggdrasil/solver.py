@@ -9,6 +9,7 @@ import solver_utils as sutils
 CURRENT = os.path.dirname(os.path.realpath(__file__))
 Z3_SERVER_FILE = os.path.join(CURRENT, "server.py")
 
+from logger import logger
 
 def to_smt2(*terms):
     s = z3.Solver()

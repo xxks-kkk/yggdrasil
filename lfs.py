@@ -10,6 +10,8 @@ class LFS(object):
 
     SB_OFF_BALLOC = 0
     SB_OFF_IALLOC = 1
+    # hzy: offset inside the superblock that stores the beginning disk address
+    # of the imap
     SB_OFF_IMAP = 2
 
     I_OFF_MTIME = 0
@@ -34,6 +36,8 @@ class LFS(object):
         assert self._imap is None
 
         self._sb = self._disk.read(self.SUPERBLOCK)
+        # _imap: a structure that takes an inode number as
+        # input and produces the disk address of the most recent version of the inode.
         self._imap = self._disk.read(self._sb[self.SB_OFF_IMAP])
 
     def _balloc(self):
@@ -168,14 +172,21 @@ class LFS(object):
 
 
 def mkfs(disk):
+    # hzy: as shown in "lfs.pxd", `cdef AsyncDisk _disk`. Thus
+    # here `_disk` type is `AsyncDisk` from "diskimpl.pyx"
+    # We read the first block (indicated by 0) from the disk and treat it as the superblock
     sb = disk._disk.read(0)
     if sb[0] == 0:
+        # TODO: hzy: ???
         sb[LFS.SB_OFF_BALLOC] = 3
         sb[LFS.SB_OFF_IALLOC] = 2
+        # hzy: disk address of the most recent version of imap (block 1)
         sb[LFS.SB_OFF_IMAP] = 1
+        # hzy: write superblock to the disk at the address 0
         disk._disk.write(0, sb)
 
         imap = ConstBlock(0)
+        # TODO: hzy: why 2?
         imap[1] = 2
         disk._disk.write(1, imap)
 

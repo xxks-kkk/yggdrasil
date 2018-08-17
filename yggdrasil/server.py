@@ -4,12 +4,14 @@ import z3
 
 from solver_utils import write_cmd, read_cmd
 
+from logger import logger
 
 class Server(object):
     def __init__(self):
         self._s = z3.Solver()
 
     def _write(self, command):
+        logger.info("[%s]::command: %s" % (__name__, command))
         return write_cmd(sys.stdout, command)
 
     def _read(self):

@@ -17,6 +17,15 @@ cpdef inline bint And(bint a=1, bint b=1, bint c=1):
 
 
 cpdef inline Block ConstBlock(uint64_t c):
+    """
+    hzy: create a block. By default, the created block contains 'c' as specified.
+    
+    Args:
+        c:  an unsigned int represented in exactly 64 bits (i.e. 8 bytes)
+
+    Returns: the newly created block
+
+    """
     block = Block(BLOCKSIZE)
     if c == 0:
         return block
@@ -132,6 +141,8 @@ cdef class AsyncDisk:
     cpdef Block read(self, uint64_t blknum):
         cdef Block block = Block(BLOCKSIZE)
         cdef char* buf = <char*>block.buf
+        # hzy: read from a file descriptor at a given offset
+        # here, the read starts at `blknum * BLOCKSIZE` and read `BLOCKSIZE`
         cdef ssize_t nbytes = pread(self.fd, buf, BLOCKSIZE, blknum * BLOCKSIZE)
         assert nbytes == BLOCKSIZE, "async disk: could not read entire blocksize"
         return block
