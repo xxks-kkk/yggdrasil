@@ -24,7 +24,7 @@ class LFS(object):
         self._sb = None
         self._imap = None
 
-    def read(self, ino, block):
+    def read(self, ino):
         self._begin()
         bid = self._imap[ino]
         r = self._disk.read(bid)
