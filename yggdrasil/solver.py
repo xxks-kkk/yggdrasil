@@ -86,5 +86,6 @@ if __name__ == '__main__':
     print s.check()
     model = s.model()
     print model
+    # hzy: we evaluate expressions (e.g. x) in the model given the system
+    # of contraints inside model (through add() method)
     print model.evaluate(x)
-    # print s.model().evaluate(x)

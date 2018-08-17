@@ -88,10 +88,15 @@ def UMin(a, *args):
 
 
 def fresh_name(name):
+    # hzy: whether "fresh_name" function has attribute "idx"
     if not hasattr(fresh_name, "idx"):
         fresh_name.idx = {}
+    # hzy: we get the value of "name" in dictionary: fresh_name.idx
+    # if "name" is not in the dictionary, we return 0
     n = fresh_name.idx.get(name, 0)
     fresh_name.idx[name] = n + 1
+    # hzy: n here is like version number. For example, if "name" is "x",
+    # then return "x.0"
     return name + "." + str(n)
 
 
