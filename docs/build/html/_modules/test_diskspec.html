@@ -28,6 +28,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for test_diskspec</h1><div class="highlight"><pre>
@@ -164,7 +166,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">bid</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">crash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mach</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">crash</span><span class="p">(</span><span class="n">mach</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">crash</span><span class="p">(</span><span class="n">mach</span><span class="p">))</span>
 
 
 <span class="k">class</span> <span class="nc">SyncDiskTest</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">DiskTest</span><span class="p">):</span>
@@ -223,7 +225,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">bid</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="FlushingDisk.crash"><a class="viewcode-back" href="../test_diskspec.html#test_diskspec.FlushingDisk.crash">[docs]</a>    <span class="k">def</span> <span class="nf">crash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mach</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">crash</span><span class="p">(</span><span class="n">mach</span><span class="p">))</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">crash</span><span class="p">(</span><span class="n">mach</span><span class="p">))</span></div></div>
 
 
 <div class="viewcode-block" id="SyncDiskTest"><a class="viewcode-back" href="../test_diskspec.html#test_diskspec.SyncDiskTest">[docs]</a><span class="k">class</span> <span class="nc">SyncDiskTest</span><span class="p">(</span><span class="n">test</span><span class="o">.</span><span class="n">DiskTest</span><span class="p">):</span>
@@ -357,11 +359,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">prove</span><span class="p">(</span><span class="n">Implies</span><span class="p">(</span><span class="n">mapped</span><span class="p">,</span> <span class="n">Not</span><span class="p">(</span><span class="n">d2</span><span class="o">.</span><span class="n">is_mapped</span><span class="p">(</span><span class="n">vbn</span><span class="p">))))</span></div></div>
 
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">test</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -411,7 +414,7 @@
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
       
     </div>
 

@@ -28,6 +28,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for yggdrasil.solver_utils</h1><div class="highlight"><pre>
@@ -36,25 +38,44 @@
 
 <span class="n">LEN_LEN</span> <span class="o">=</span> <span class="mi">8</span>
 
+<span class="kn">from</span> <span class="nn">logger</span> <span class="k">import</span> <span class="n">logger</span>
+
 <div class="viewcode-block" id="write_cmd"><a class="viewcode-back" href="../../yggdrasil.html#yggdrasil.solver_utils.write_cmd">[docs]</a><span class="k">def</span> <span class="nf">write_cmd</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">command</span><span class="p">):</span>
     <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+    <span class="c1"># hzy: &quot;10&quot; is the base of log</span>
     <span class="k">assert</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">payload</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">LEN_LEN</span><span class="p">,</span> <span class="s2">&quot;payload length = </span><span class="si">{}</span><span class="s2"> to large&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
-    <span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="n">LEN_LEN</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">))</span>
+    <span class="c1"># hzy: returns the string right justified in a string of length LEN_LEN</span>
+    <span class="c1"># we do padding using &#39;0&#39;</span>
+    <span class="n">payloadLen</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="n">LEN_LEN</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span>
+    <span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">payloadLen</span><span class="p">)</span>
     <span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;[</span><span class="si">%s</span><span class="s2">]::payloadLen: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">payloadLen</span><span class="p">))</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;[</span><span class="si">%s</span><span class="s2">]::payload: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">payload</span><span class="p">))</span>
+    <span class="c1"># hzy: stream is stdout or stdin in the code, by flushing, we force the buffered information</span>
+    <span class="c1"># written to the stdout, for example.</span>
     <span class="n">stream</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="read"><a class="viewcode-back" href="../../yggdrasil.html#yggdrasil.solver_utils.read">[docs]</a><span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">count</span><span class="p">):</span>
+    <span class="c1"># hzy: stream is of type &quot;sys.stdin&quot; in the code. We read &quot;count&quot; bytes and</span>
+    <span class="c1"># return the bytes we have read</span>
     <span class="n">v</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;[</span><span class="si">%s</span><span class="s2">]::count: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">count</span><span class="p">))</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;[</span><span class="si">%s</span><span class="s2">]::v: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">v</span></div>
 
 
 <div class="viewcode-block" id="read_cmd"><a class="viewcode-back" href="../../yggdrasil.html#yggdrasil.solver_utils.read_cmd">[docs]</a><span class="k">def</span> <span class="nf">read_cmd</span><span class="p">(</span><span class="n">stream</span><span class="p">):</span>
+    <span class="c1"># hzy: this method corresponds with &quot;write_method&quot; in terms of</span>
+    <span class="c1"># how we construct the stream: first write the length and then write</span>
+    <span class="c1"># the payload. Accordingly, when read, we read the length, and then the payload.</span>
     <span class="n">cmdlen</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">LEN_LEN</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">cmdlen</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">read</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">cmdlen</span><span class="p">))</span>
     <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># hzy: try to decode the json data</span>
+        <span class="c1"># (https://docs.python.org/2/library/json.html)</span>
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
         <span class="nb">print</span> <span class="n">data</span>
@@ -63,6 +84,7 @@
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -112,7 +134,7 @@
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
       
     </div>
 

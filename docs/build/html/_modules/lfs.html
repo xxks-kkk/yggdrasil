@@ -28,6 +28,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for lfs</h1><div class="highlight"><pre>
@@ -43,6 +45,8 @@
 
     <span class="n">SB_OFF_BALLOC</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">SB_OFF_IALLOC</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="c1"># hzy: offset inside the superblock that stores the beginning disk address</span>
+    <span class="c1"># of the imap</span>
     <span class="n">SB_OFF_IMAP</span> <span class="o">=</span> <span class="mi">2</span>
 
     <span class="n">I_OFF_MTIME</span> <span class="o">=</span> <span class="mi">0</span>
@@ -55,9 +59,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_sb</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imap</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="LFS.read"><a class="viewcode-back" href="../lfs.html#lfs.LFS.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ino</span><span class="p">,</span> <span class="n">block</span><span class="p">):</span>
+<div class="viewcode-block" id="LFS.read"><a class="viewcode-back" href="../lfs.html#lfs.LFS.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ino</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_begin</span><span class="p">()</span>
+        <span class="c1"># hzy: we get the disk address of the given inode number `ino`</span>
         <span class="n">bid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imap</span><span class="p">[</span><span class="n">ino</span><span class="p">]</span>
+        <span class="c1"># hzy: we fetch the block indicated by the address `bid`</span>
         <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">bid</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_commit</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">r</span></div>
@@ -66,7 +72,11 @@
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sb</span> <span class="ow">is</span> <span class="kc">None</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imap</span> <span class="ow">is</span> <span class="kc">None</span>
 
+        <span class="c1"># hzy: _sb is the superblock. We read the block from disk with</span>
+        <span class="c1"># address self.SUPERBLOCK</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SUPERBLOCK</span><span class="p">)</span>
+        <span class="c1"># hzy: _imap: a structure that takes an inode number as</span>
+        <span class="c1"># input and produces the disk address of the most recent version of the inode.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sb</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">SB_OFF_IMAP</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">_balloc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -197,18 +207,25 @@
         <span class="k">return</span> <span class="n">ino</span></div>
 
 <div class="viewcode-block" id="LFS.crash"><a class="viewcode-back" href="../lfs.html#lfs.LFS.crash">[docs]</a>    <span class="k">def</span> <span class="nf">crash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mach</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">crash</span><span class="p">(</span><span class="n">mach</span><span class="p">))</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">crash</span><span class="p">(</span><span class="n">mach</span><span class="p">))</span></div></div>
 
 
 <div class="viewcode-block" id="mkfs"><a class="viewcode-back" href="../lfs.html#lfs.mkfs">[docs]</a><span class="k">def</span> <span class="nf">mkfs</span><span class="p">(</span><span class="n">disk</span><span class="p">):</span>
+    <span class="c1"># hzy: as shown in &quot;lfs.pxd&quot;, `cdef AsyncDisk _disk`. Thus</span>
+    <span class="c1"># here `_disk` type is `AsyncDisk` from &quot;diskimpl.pyx&quot;</span>
+    <span class="c1"># We read the first block (indicated by 0) from the disk and treat it as the superblock</span>
     <span class="n">sb</span> <span class="o">=</span> <span class="n">disk</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">sb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># TODO: hzy: ???</span>
         <span class="n">sb</span><span class="p">[</span><span class="n">LFS</span><span class="o">.</span><span class="n">SB_OFF_BALLOC</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
         <span class="n">sb</span><span class="p">[</span><span class="n">LFS</span><span class="o">.</span><span class="n">SB_OFF_IALLOC</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="c1"># hzy: disk address of the most recent version of imap (block 1)</span>
         <span class="n">sb</span><span class="p">[</span><span class="n">LFS</span><span class="o">.</span><span class="n">SB_OFF_IMAP</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1"># hzy: write superblock to the disk at the address 0</span>
         <span class="n">disk</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sb</span><span class="p">)</span>
 
         <span class="n">imap</span> <span class="o">=</span> <span class="n">ConstBlock</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># TODO: hzy: why 2?</span>
         <span class="n">imap</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="n">disk</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">imap</span><span class="p">)</span></div>
 
@@ -220,7 +237,7 @@
 
     <span class="k">return</span> <span class="n">lfs</span></div>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="n">lfs</span> <span class="o">=</span> <span class="n">create_lfs</span><span class="p">()</span>
 
     <span class="nb">print</span> <span class="n">lfs</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span>
@@ -231,6 +248,7 @@
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -280,7 +298,7 @@
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
       
     </div>
 

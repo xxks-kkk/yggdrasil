@@ -30,13 +30,15 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="module-dirinode">
 <span id="dirinode-module"></span><h1>dirinode module<a class="headerlink" href="#module-dirinode" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="dirinode.DirImpl">
-<em class="property">class </em><code class="descclassname">dirinode.</code><code class="descname">DirImpl</code><span class="sig-paren">(</span><em>txndisk</em>, <em>inode</em>, <em>Allocator</em>, <em>Bitmap</em>, <em>DirLookup</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dirinode.</code><code class="descname">DirImpl</code><a class="headerlink" href="#dirinode.DirImpl" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="dirinode.DirImpl.IFREEDISK">
@@ -54,199 +56,119 @@
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="dirinode.DirImpl.clear_dentry">
-<code class="descname">clear_dentry</code><span class="sig-paren">(</span><em>block</em>, <em>off</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.clear_dentry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.clear_dentry" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="dirinode.DirImpl.crash">
-<code class="descname">crash</code><span class="sig-paren">(</span><em>mach</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.crash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.crash" title="Permalink to this definition">¶</a></dt>
+<code class="descname">crash</code><span class="sig-paren">(</span><em>mach</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.DirImpl.crash" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.DirImpl.forget">
-<code class="descname">forget</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.forget"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.forget" title="Permalink to this definition">¶</a></dt>
+<code class="descname">forget</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.DirImpl.forget" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.DirImpl.fsync">
-<code class="descname">fsync</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.fsync"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.fsync" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fsync</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.DirImpl.fsync" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.DirImpl.gc1">
-<code class="descname">gc1</code><span class="sig-paren">(</span><em>orph_index</em>, <em>off</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.gc1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.gc1" title="Permalink to this definition">¶</a></dt>
+<code class="descname">gc1</code><span class="sig-paren">(</span><em>orph_index</em>, <em>off</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.DirImpl.gc1" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.DirImpl.gc2">
-<code class="descname">gc2</code><span class="sig-paren">(</span><em>orph_index</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.gc2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.gc2" title="Permalink to this definition">¶</a></dt>
+<code class="descname">gc2</code><span class="sig-paren">(</span><em>orph_index</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.DirImpl.gc2" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.DirImpl.gc3">
-<code class="descname">gc3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.gc3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.gc3" title="Permalink to this definition">¶</a></dt>
+<code class="descname">gc3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.DirImpl.gc3" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.DirImpl.get_iattr">
-<code class="descname">get_iattr</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.get_iattr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.get_iattr" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_iattr</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.DirImpl.get_iattr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.DirImpl.ialloc">
-<code class="descname">ialloc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.ialloc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.ialloc" title="Permalink to this definition">¶</a></dt>
+<code class="descname">ialloc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.DirImpl.ialloc" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.DirImpl.is_dir">
-<code class="descname">is_dir</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.is_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.is_dir" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_dir</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.DirImpl.is_dir" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.DirImpl.is_gcable">
-<code class="descname">is_gcable</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.is_gcable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.is_gcable" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_gcable</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.DirImpl.is_gcable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.DirImpl.is_ifree">
-<code class="descname">is_ifree</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.is_ifree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.is_ifree" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_ifree</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.DirImpl.is_ifree" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.DirImpl.is_regular">
-<code class="descname">is_regular</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.is_regular"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.is_regular" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_regular</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.DirImpl.is_regular" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.DirImpl.is_valid">
-<code class="descname">is_valid</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.is_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.is_valid" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dirinode.DirImpl.locate_dentry_ino">
-<code class="descname">locate_dentry_ino</code><span class="sig-paren">(</span><em>ino</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.locate_dentry_ino"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.locate_dentry_ino" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dirinode.DirImpl.locate_empty_dentry_slot_err_ino">
-<code class="descname">locate_empty_dentry_slot_err_ino</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.locate_empty_dentry_slot_err_ino"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.locate_empty_dentry_slot_err_ino" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dirinode.DirImpl.locate_empty_dentry_slot_ino">
-<code class="descname">locate_empty_dentry_slot_ino</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.locate_empty_dentry_slot_ino"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.locate_empty_dentry_slot_ino" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dirinode.DirImpl.lookup">
-<code class="descname">lookup</code><span class="sig-paren">(</span><em>parent</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.lookup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.lookup" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dirinode.DirImpl.mknod">
-<code class="descname">mknod</code><span class="sig-paren">(</span><em>parent</em>, <em>name</em>, <em>mode</em>, <em>mtime</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.mknod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.mknod" title="Permalink to this definition">¶</a></dt>
+<code class="descname">is_valid</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.DirImpl.is_valid" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.DirImpl.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>ino</em>, <em>blocknum</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.read" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dirinode.DirImpl.rename">
-<code class="descname">rename</code><span class="sig-paren">(</span><em>oparent</em>, <em>oname</em>, <em>nparent</em>, <em>nname</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.rename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.rename" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dirinode.DirImpl.rmdir">
-<code class="descname">rmdir</code><span class="sig-paren">(</span><em>parent</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.rmdir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.rmdir" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>ino</em>, <em>blocknum</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.DirImpl.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.DirImpl.set_iattr">
-<code class="descname">set_iattr</code><span class="sig-paren">(</span><em>ino</em>, <em>attr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.set_iattr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.set_iattr" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_iattr</code><span class="sig-paren">(</span><em>ino</em>, <em>attr</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.DirImpl.set_iattr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.DirImpl.truncate">
-<code class="descname">truncate</code><span class="sig-paren">(</span><em>ino</em>, <em>fsize</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.truncate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.truncate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dirinode.DirImpl.unlink">
-<code class="descname">unlink</code><span class="sig-paren">(</span><em>parent</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.unlink"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.unlink" title="Permalink to this definition">¶</a></dt>
+<code class="descname">truncate</code><span class="sig-paren">(</span><em>ino</em>, <em>fsize</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.DirImpl.truncate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.DirImpl.write">
-<code class="descname">write</code><span class="sig-paren">(</span><em>ino</em>, <em>blocknum</em>, <em>v</em>, <em>size=4096L</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>ino</em>, <em>blocknum</em>, <em>v</em>, <em>size</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.DirImpl.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="method">
-<dt id="dirinode.DirImpl.write_dentry">
-<code class="descname">write_dentry</code><span class="sig-paren">(</span><em>block</em>, <em>off</em>, <em>ino</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#DirImpl.write_dentry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.DirImpl.write_dentry" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="dirinode.Disk">
-<em class="property">class </em><code class="descclassname">dirinode.</code><code class="descname">Disk</code><span class="sig-paren">(</span><em>read</em>, <em>write</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.Disk" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
-<dl class="method">
-<dt id="dirinode.Disk._asdict">
-<code class="descname">_asdict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.Disk._asdict" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a new OrderedDict which maps field names to their values</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="dirinode.Disk._replace">
-<code class="descname">_replace</code><span class="sig-paren">(</span><em>**kwds</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.Disk._replace" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return a new Disk object replacing specified fields with new values</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="dirinode.Disk.read">
-<code class="descname">read</code><a class="headerlink" href="#dirinode.Disk.read" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 0</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="dirinode.Disk.write">
-<code class="descname">write</code><a class="headerlink" href="#dirinode.Disk.write" title="Permalink to this definition">¶</a></dt>
-<dd><p>Alias for field number 1</p>
-</dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="dirinode.Orphans">
-<em class="property">class </em><code class="descclassname">dirinode.</code><code class="descname">Orphans</code><span class="sig-paren">(</span><em>orphandisk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#Orphans"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.Orphans" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dirinode.</code><code class="descname">Orphans</code><span class="sig-paren">(</span><em>orphandisk</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.Orphans" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="method">
 <dt id="dirinode.Orphans.append">
-<code class="descname">append</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#Orphans.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.Orphans.append" title="Permalink to this definition">¶</a></dt>
+<code class="descname">append</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.Orphans.append" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.Orphans.clear">
-<code class="descname">clear</code><span class="sig-paren">(</span><em>idx</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#Orphans.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.Orphans.clear" title="Permalink to this definition">¶</a></dt>
+<code class="descname">clear</code><span class="sig-paren">(</span><em>idx</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.Orphans.clear" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.Orphans.index">
-<code class="descname">index</code><span class="sig-paren">(</span><em>idx</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#Orphans.index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.Orphans.index" title="Permalink to this definition">¶</a></dt>
+<code class="descname">index</code><span class="sig-paren">(</span><em>idx</em><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.Orphans.index" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.Orphans.reset">
-<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#Orphans.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.Orphans.reset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.Orphans.reset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dirinode.Orphans.size">
-<code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dirinode.html#Orphans.size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dirinode.Orphans.size" title="Permalink to this definition">¶</a></dt>
+<code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#dirinode.Orphans.size" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -255,6 +177,7 @@
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -344,7 +267,7 @@
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
       
       |
       <a href="_sources/dirinode.rst.txt"

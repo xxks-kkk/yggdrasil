@@ -30,14 +30,48 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="lfs-fuse-module">
-<h1>lfs_fuse module<a class="headerlink" href="#lfs-fuse-module" title="Permalink to this headline">¶</a></h1>
+<span id="lfs-fuse-rst"></span><h1>lfs_fuse module<a class="headerlink" href="#lfs-fuse-module" title="Permalink to this headline">¶</a></h1>
+<p>The main function in <code class="docutils literal notranslate"><span class="pre">lfs_fuse.pyx</span></code> is</p>
+<dl class="function">
+<dt>
+<code class="descname">cdef int cmain(int argc, char **argv)</code></dt>
+<dd><p>The key part is <code class="docutils literal notranslate"><span class="pre">cdef</span> <span class="pre">fuse_lowlevel_ops</span> <span class="pre">ops</span></code>. <a class="reference external" href="https://libfuse.github.io/doxygen/structfuse__lowlevel__ops.html">fuse_lowlevel_ops</a>
+is part of the FUSE library, that will be used to handle the request from the kernel and invoke the
+corresponding methods in the FUSE file system implementation. More details see <a class="reference external" href="https://www.usenix.org/system/files/conference/fast17/fast17-vangoor.pdf">To FUSE or Not to FUSE paper</a>.</p>
+<p>Here, we regesiter our FUSE file system implementation with the low-level API interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ops</span><span class="o">.</span><span class="n">getattr</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">ll_getattr</span>
+<span class="n">ops</span><span class="o">.</span><span class="n">lookup</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">ll_lookup</span>
+<span class="n">ops</span><span class="o">.</span><span class="n">readdir</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">ll_readdir</span>
+<span class="n">ops</span><span class="o">.</span><span class="n">mknod</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">ll_mknod</span>
+</pre></div>
+</div>
+<p>For example, if FUSE library receives the <code class="docutils literal notranslate"><span class="pre">getattr</span></code> request from the kernel, which sent by the user application,
+corresponding <a class="reference internal" href="#lfs-fuse-ll-getattr"><span class="std std-ref">ll_getattr</span></a> method will be invoked.</p>
+</dd></dl>
+
+<span class="target" id="lfs-fuse-ll-getattr"></span><dl class="function">
+<dt>
+<code class="descname">cdef void ll_getattr(fuse_req_t req, fuse_ino_t ino, fuse_file_info *fi)</code></dt>
+<dd><p><a class="reference internal" href="#lfs-fuse-mkstat"><span class="std std-ref">mkstat</span></a> is invoked.</p>
+</dd></dl>
+
+<span class="target" id="lfs-fuse-mkstat"></span><dl class="function">
+<dt>
+<code class="descname">cdef int mkstat(fuse_ino_t ino, struct_stat *stbuf)</code></dt>
+<dd><p>Inside <code class="docutils literal notranslate"><span class="pre">stat</span> <span class="pre">=</span> <span class="pre">inode_obj.get_attr(ino)</span></code>, <a class="reference internal" href="lfs.html#lfs.LFS.get_attr" title="lfs.LFS.get_attr"><code class="xref py py-meth docutils literal notranslate"><span class="pre">lfs.LFS.get_attr()</span></code></a> is invoked, which comes from
+<code class="docutils literal notranslate"><span class="pre">lfs.py</span></code>.</p>
+</dd></dl>
+
 </div>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -127,7 +161,7 @@
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
       
       |
       <a href="_sources/lfs_fuse.rst.txt"

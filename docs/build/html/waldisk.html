@@ -30,57 +30,79 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="module-waldisk">
 <span id="waldisk-module"></span><h1>waldisk module<a class="headerlink" href="#module-waldisk" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="waldisk.WALDisk">
-<em class="property">class </em><code class="descclassname">waldisk.</code><code class="descname">WALDisk</code><span class="sig-paren">(</span><em>logdisk</em>, <em>datadisks</em>, <em>osync=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/waldisk.html#WALDisk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#waldisk.WALDisk" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">waldisk.</code><code class="descname">WALDisk</code><a class="headerlink" href="#waldisk.WALDisk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="attribute">
+<dt id="waldisk.WALDisk.LOG_BID_HEADER_BLOCK">
+<code class="descname">LOG_BID_HEADER_BLOCK</code><a class="headerlink" href="#waldisk.WALDisk.LOG_BID_HEADER_BLOCK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="waldisk.WALDisk.LOG_DEV_HEADER_BLOCK">
+<code class="descname">LOG_DEV_HEADER_BLOCK</code><a class="headerlink" href="#waldisk.WALDisk.LOG_DEV_HEADER_BLOCK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="waldisk.WALDisk.LOG_HEADER_BLOCK">
+<code class="descname">LOG_HEADER_BLOCK</code><a class="headerlink" href="#waldisk.WALDisk.LOG_HEADER_BLOCK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
 <dt id="waldisk.WALDisk.LOG_MAX_ENTRIES">
 <code class="descname">LOG_MAX_ENTRIES</code><em class="property"> = 10</em><a class="headerlink" href="#waldisk.WALDisk.LOG_MAX_ENTRIES" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="waldisk.WALDisk.PER_BLOCK">
+<code class="descname">PER_BLOCK</code><a class="headerlink" href="#waldisk.WALDisk.PER_BLOCK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="waldisk.WALDisk.begin_tx">
-<code class="descname">begin_tx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/waldisk.html#WALDisk.begin_tx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#waldisk.WALDisk.begin_tx" title="Permalink to this definition">¶</a></dt>
+<code class="descname">begin_tx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#waldisk.WALDisk.begin_tx" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="waldisk.WALDisk.commit_tx">
-<code class="descname">commit_tx</code><span class="sig-paren">(</span><em>force=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/waldisk.html#WALDisk.commit_tx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#waldisk.WALDisk.commit_tx" title="Permalink to this definition">¶</a></dt>
+<code class="descname">commit_tx</code><span class="sig-paren">(</span><em>force</em><span class="sig-paren">)</span><a class="headerlink" href="#waldisk.WALDisk.commit_tx" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="waldisk.WALDisk.crash">
-<code class="descname">crash</code><span class="sig-paren">(</span><em>mach</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/waldisk.html#WALDisk.crash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#waldisk.WALDisk.crash" title="Permalink to this definition">¶</a></dt>
+<code class="descname">crash</code><span class="sig-paren">(</span><em>mach</em><span class="sig-paren">)</span><a class="headerlink" href="#waldisk.WALDisk.crash" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="waldisk.WALDisk.flush">
-<code class="descname">flush</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/waldisk.html#WALDisk.flush"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#waldisk.WALDisk.flush" title="Permalink to this definition">¶</a></dt>
+<code class="descname">flush</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#waldisk.WALDisk.flush" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="waldisk.WALDisk.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>dev</em>, <em>bid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/waldisk.html#WALDisk.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#waldisk.WALDisk.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>dev</em>, <em>bid</em><span class="sig-paren">)</span><a class="headerlink" href="#waldisk.WALDisk.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="waldisk.WALDisk.write">
-<code class="descname">write</code><span class="sig-paren">(</span><em>dev</em>, <em>bid</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/waldisk.html#WALDisk.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#waldisk.WALDisk.write" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>dev</em>, <em>bid</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#waldisk.WALDisk.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="waldisk.WALDisk.write_tx">
-<code class="descname">write_tx</code><span class="sig-paren">(</span><em>dev</em>, <em>bid</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/waldisk.html#WALDisk.write_tx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#waldisk.WALDisk.write_tx" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write_tx</code><span class="sig-paren">(</span><em>dev</em>, <em>bid</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#waldisk.WALDisk.write_tx" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="waldisk.WALDisk.writev">
-<code class="descname">writev</code><span class="sig-paren">(</span><em>iov</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/waldisk.html#WALDisk.writev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#waldisk.WALDisk.writev" title="Permalink to this definition">¶</a></dt>
+<code class="descname">writev</code><span class="sig-paren">(</span><em>iov</em><span class="sig-paren">)</span><a class="headerlink" href="#waldisk.WALDisk.writev" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -89,6 +111,7 @@
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -178,7 +201,7 @@
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
       
       |
       <a href="_sources/waldisk.rst.txt"

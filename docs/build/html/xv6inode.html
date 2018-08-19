@@ -30,13 +30,15 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="module-xv6inode">
 <span id="xv6inode-module"></span><h1>xv6inode module<a class="headerlink" href="#module-xv6inode" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="xv6inode.InodeDisk">
-<em class="property">class </em><code class="descclassname">xv6inode.</code><code class="descname">InodeDisk</code><span class="sig-paren">(</span><em>txndisk</em>, <em>Allocator</em>, <em>Bitmap</em>, <em>Inode</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#InodeDisk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.InodeDisk" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">xv6inode.</code><code class="descname">InodeDisk</code><a class="headerlink" href="#xv6inode.InodeDisk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="xv6inode.InodeDisk.DATADISK">
@@ -64,90 +66,25 @@
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="xv6inode.InodeDisk.alloc">
-<code class="descname">alloc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#InodeDisk.alloc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.InodeDisk.alloc" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.InodeDisk.begin_tx">
-<code class="descname">begin_tx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#InodeDisk.begin_tx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.InodeDisk.begin_tx" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.InodeDisk.bmap">
-<code class="descname">bmap</code><span class="sig-paren">(</span><em>vbn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#InodeDisk.bmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.InodeDisk.bmap" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.InodeDisk.bunmap">
-<code class="descname">bunmap</code><span class="sig-paren">(</span><em>vbn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#InodeDisk.bunmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.InodeDisk.bunmap" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.InodeDisk.commit_tx">
-<code class="descname">commit_tx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#InodeDisk.commit_tx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.InodeDisk.commit_tx" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="xv6inode.InodeDisk.crash">
-<code class="descname">crash</code><span class="sig-paren">(</span><em>mach</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#InodeDisk.crash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.InodeDisk.crash" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.InodeDisk.free">
-<code class="descname">free</code><span class="sig-paren">(</span><em>lbn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#InodeDisk.free"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.InodeDisk.free" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.InodeDisk.get_iattr">
-<code class="descname">get_iattr</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#InodeDisk.get_iattr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.InodeDisk.get_iattr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.InodeDisk.is_free">
-<code class="descname">is_free</code><span class="sig-paren">(</span><em>lbn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#InodeDisk.is_free"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.InodeDisk.is_free" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.InodeDisk.is_mapped">
-<code class="descname">is_mapped</code><span class="sig-paren">(</span><em>vbn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#InodeDisk.is_mapped"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.InodeDisk.is_mapped" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.InodeDisk.mappingi">
-<code class="descname">mappingi</code><span class="sig-paren">(</span><em>vbn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#InodeDisk.mappingi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.InodeDisk.mappingi" title="Permalink to this definition">¶</a></dt>
+<code class="descname">crash</code><span class="sig-paren">(</span><em>mach</em><span class="sig-paren">)</span><a class="headerlink" href="#xv6inode.InodeDisk.crash" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="xv6inode.InodeDisk.mkfs">
-<code class="descname">mkfs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#InodeDisk.mkfs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.InodeDisk.mkfs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.InodeDisk.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>lbn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#InodeDisk.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.InodeDisk.read" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.InodeDisk.set_iattr">
-<code class="descname">set_iattr</code><span class="sig-paren">(</span><em>ino</em>, <em>attr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#InodeDisk.set_iattr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.InodeDisk.set_iattr" title="Permalink to this definition">¶</a></dt>
+<code class="descname">mkfs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#xv6inode.InodeDisk.mkfs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="xv6inode.InodeDisk.write">
-<code class="descname">write</code><span class="sig-paren">(</span><em>lbn</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#InodeDisk.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.InodeDisk.write" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.InodeDisk.write_tx">
-<code class="descname">write_tx</code><span class="sig-paren">(</span><em>lbn</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#InodeDisk.write_tx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.InodeDisk.write_tx" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>lbn</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#xv6inode.InodeDisk.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="xv6inode.IndirectInodeDisk">
-<em class="property">class </em><code class="descclassname">xv6inode.</code><code class="descname">IndirectInodeDisk</code><span class="sig-paren">(</span><em>idisk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#IndirectInodeDisk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.IndirectInodeDisk" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">xv6inode.</code><code class="descname">IndirectInodeDisk</code><a class="headerlink" href="#xv6inode.IndirectInodeDisk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="xv6inode.IndirectInodeDisk.NINDIRECT">
@@ -155,68 +92,13 @@
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="xv6inode.IndirectInodeDisk.begin_tx">
-<code class="descname">begin_tx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#IndirectInodeDisk.begin_tx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.IndirectInodeDisk.begin_tx" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.IndirectInodeDisk.bmap">
-<code class="descname">bmap</code><span class="sig-paren">(</span><em>vbn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#IndirectInodeDisk.bmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.IndirectInodeDisk.bmap" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.IndirectInodeDisk.bunmap">
-<code class="descname">bunmap</code><span class="sig-paren">(</span><em>vbn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#IndirectInodeDisk.bunmap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.IndirectInodeDisk.bunmap" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.IndirectInodeDisk.commit_tx">
-<code class="descname">commit_tx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#IndirectInodeDisk.commit_tx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.IndirectInodeDisk.commit_tx" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
 <dt id="xv6inode.IndirectInodeDisk.crash">
-<code class="descname">crash</code><span class="sig-paren">(</span><em>mach</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#IndirectInodeDisk.crash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.IndirectInodeDisk.crash" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.IndirectInodeDisk.get_iattr">
-<code class="descname">get_iattr</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#IndirectInodeDisk.get_iattr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.IndirectInodeDisk.get_iattr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.IndirectInodeDisk.is_free">
-<code class="descname">is_free</code><span class="sig-paren">(</span><em>lbn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#IndirectInodeDisk.is_free"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.IndirectInodeDisk.is_free" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.IndirectInodeDisk.is_mapped">
-<code class="descname">is_mapped</code><span class="sig-paren">(</span><em>vbn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#IndirectInodeDisk.is_mapped"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.IndirectInodeDisk.is_mapped" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.IndirectInodeDisk.mappingi">
-<code class="descname">mappingi</code><span class="sig-paren">(</span><em>vbn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#IndirectInodeDisk.mappingi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.IndirectInodeDisk.mappingi" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.IndirectInodeDisk.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>lbn</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#IndirectInodeDisk.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.IndirectInodeDisk.read" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.IndirectInodeDisk.set_iattr">
-<code class="descname">set_iattr</code><span class="sig-paren">(</span><em>ino</em>, <em>attr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#IndirectInodeDisk.set_iattr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.IndirectInodeDisk.set_iattr" title="Permalink to this definition">¶</a></dt>
+<code class="descname">crash</code><span class="sig-paren">(</span><em>mach</em><span class="sig-paren">)</span><a class="headerlink" href="#xv6inode.IndirectInodeDisk.crash" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="xv6inode.IndirectInodeDisk.write">
-<code class="descname">write</code><span class="sig-paren">(</span><em>lbn</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#IndirectInodeDisk.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.IndirectInodeDisk.write" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="xv6inode.IndirectInodeDisk.write_tx">
-<code class="descname">write_tx</code><span class="sig-paren">(</span><em>lbn</em>, <em>data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/xv6inode.html#IndirectInodeDisk.write_tx"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#xv6inode.IndirectInodeDisk.write_tx" title="Permalink to this definition">¶</a></dt>
+<code class="descname">write</code><span class="sig-paren">(</span><em>lbn</em>, <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#xv6inode.IndirectInodeDisk.write" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -225,6 +107,7 @@
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -314,7 +197,7 @@
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
       
       |
       <a href="_sources/xv6inode.rst.txt"

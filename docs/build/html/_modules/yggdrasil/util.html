@@ -28,6 +28,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for yggdrasil.util</h1><div class="highlight"><pre>
@@ -121,10 +123,15 @@
 
 
 <div class="viewcode-block" id="fresh_name"><a class="viewcode-back" href="../../yggdrasil.html#yggdrasil.util.fresh_name">[docs]</a><span class="k">def</span> <span class="nf">fresh_name</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="c1"># hzy: whether &quot;fresh_name&quot; function has attribute &quot;idx&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fresh_name</span><span class="p">,</span> <span class="s2">&quot;idx&quot;</span><span class="p">):</span>
         <span class="n">fresh_name</span><span class="o">.</span><span class="n">idx</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># hzy: we get the value of &quot;name&quot; in dictionary: fresh_name.idx</span>
+    <span class="c1"># if &quot;name&quot; is not in the dictionary, we return 0</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">fresh_name</span><span class="o">.</span><span class="n">idx</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">fresh_name</span><span class="o">.</span><span class="n">idx</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="c1"># hzy: n here is like version number. For example, if &quot;name&quot; is &quot;x&quot;,</span>
+    <span class="c1"># then return &quot;x.0&quot;</span>
     <span class="k">return</span> <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span></div>
 
 
@@ -176,6 +183,7 @@
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -225,7 +233,7 @@
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
       
     </div>
 

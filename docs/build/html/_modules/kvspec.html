@@ -28,6 +28,8 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <h1>Source code for kvspec</h1><div class="highlight"><pre>
@@ -61,10 +63,11 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_fn_data</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">off</span><span class="p">,</span> <span class="n">oldfn</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_fn_data</span><span class="p">:</span> <span class="n">If</span><span class="p">(</span><span class="n">And</span><span class="p">(</span><span class="n">on</span><span class="p">,</span> <span class="n">x</span> <span class="o">==</span> <span class="n">key</span><span class="p">),</span> <span class="n">value</span><span class="p">[</span><span class="n">off</span><span class="p">],</span> <span class="n">oldfn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">off</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="KVSpec.crash"><a class="viewcode-back" href="../kvspec.html#kvspec.KVSpec.crash">[docs]</a>    <span class="k">def</span> <span class="nf">crash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mach</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="n">mach</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fn_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fn_data</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">mach</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fn_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fn_data</span><span class="p">)</span></div></div>
 </pre></div>
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -114,7 +117,7 @@
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
       
     </div>
 

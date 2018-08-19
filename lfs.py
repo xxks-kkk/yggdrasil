@@ -26,7 +26,9 @@ class LFS(object):
 
     def read(self, ino):
         self._begin()
+        # hzy: we get the disk address of the given inode number `ino`
         bid = self._imap[ino]
+        # hzy: we fetch the block indicated by the address `bid`
         r = self._disk.read(bid)
         self._commit(False)
         return r
@@ -35,8 +37,10 @@ class LFS(object):
         assert self._sb is None
         assert self._imap is None
 
+        # hzy: _sb is the superblock. We read the block from disk with
+        # address self.SUPERBLOCK
         self._sb = self._disk.read(self.SUPERBLOCK)
-        # _imap: a structure that takes an inode number as
+        # hzy: _imap: a structure that takes an inode number as
         # input and produces the disk address of the most recent version of the inode.
         self._imap = self._disk.read(self._sb[self.SB_OFF_IMAP])
 

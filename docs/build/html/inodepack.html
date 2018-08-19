@@ -30,13 +30,15 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
   <div class="section" id="module-inodepack">
 <span id="inodepack-module"></span><h1>inodepack module<a class="headerlink" href="#module-inodepack" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="inodepack.InodePackDisk">
-<em class="property">class </em><code class="descclassname">inodepack.</code><code class="descname">InodePackDisk</code><span class="sig-paren">(</span><em>metadisk</em>, <em>datadisk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/inodepack.html#InodePackDisk"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#inodepack.InodePackDisk" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">inodepack.</code><code class="descname">InodePackDisk</code><a class="headerlink" href="#inodepack.InodePackDisk" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="attribute">
 <dt id="inodepack.InodePackDisk.MODE">
@@ -65,32 +67,32 @@
 
 <dl class="method">
 <dt id="inodepack.InodePackDisk.crash">
-<code class="descname">crash</code><span class="sig-paren">(</span><em>mach</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/inodepack.html#InodePackDisk.crash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#inodepack.InodePackDisk.crash" title="Permalink to this definition">¶</a></dt>
+<code class="descname">crash</code><span class="sig-paren">(</span><em>mach</em><span class="sig-paren">)</span><a class="headerlink" href="#inodepack.InodePackDisk.crash" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="inodepack.InodePackDisk.get_iattr">
-<code class="descname">get_iattr</code><span class="sig-paren">(</span><em>ino</em>, <em>block=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/inodepack.html#InodePackDisk.get_iattr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#inodepack.InodePackDisk.get_iattr" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_iattr</code><span class="sig-paren">(</span><em>ino</em>, <em>block</em><span class="sig-paren">)</span><a class="headerlink" href="#inodepack.InodePackDisk.get_iattr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="inodepack.InodePackDisk.get_mapping">
-<code class="descname">get_mapping</code><span class="sig-paren">(</span><em>ino</em>, <em>off</em>, <em>block=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/inodepack.html#InodePackDisk.get_mapping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#inodepack.InodePackDisk.get_mapping" title="Permalink to this definition">¶</a></dt>
+<code class="descname">get_mapping</code><span class="sig-paren">(</span><em>ino</em>, <em>off</em>, <em>block</em><span class="sig-paren">)</span><a class="headerlink" href="#inodepack.InodePackDisk.get_mapping" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="inodepack.InodePackDisk.read">
-<code class="descname">read</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/inodepack.html#InodePackDisk.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#inodepack.InodePackDisk.read" title="Permalink to this definition">¶</a></dt>
+<code class="descname">read</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="headerlink" href="#inodepack.InodePackDisk.read" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="inodepack.InodePackDisk.set_iattr">
-<code class="descname">set_iattr</code><span class="sig-paren">(</span><em>ino</em>, <em>attr</em>, <em>block=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/inodepack.html#InodePackDisk.set_iattr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#inodepack.InodePackDisk.set_iattr" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_iattr</code><span class="sig-paren">(</span><em>ino</em>, <em>attr</em>, <em>block</em><span class="sig-paren">)</span><a class="headerlink" href="#inodepack.InodePackDisk.set_iattr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="inodepack.InodePackDisk.set_mapping">
-<code class="descname">set_mapping</code><span class="sig-paren">(</span><em>ino</em>, <em>off</em>, <em>ptr</em>, <em>block=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/inodepack.html#InodePackDisk.set_mapping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#inodepack.InodePackDisk.set_mapping" title="Permalink to this definition">¶</a></dt>
+<code class="descname">set_mapping</code><span class="sig-paren">(</span><em>ino</em>, <em>off</em>, <em>ptr</em>, <em>block</em><span class="sig-paren">)</span><a class="headerlink" href="#inodepack.InodePackDisk.set_mapping" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -99,6 +101,7 @@
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
@@ -188,7 +191,7 @@
       
       |
       Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.11</a>
       
       |
       <a href="_sources/inodepack.rst.txt"
