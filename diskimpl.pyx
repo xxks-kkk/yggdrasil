@@ -13,6 +13,21 @@ cdef int BLOCKSIZE = 4096
 
 
 cpdef inline bint And(bint a=1, bint b=1, bint c=1):
+    """
+    hzy: A shorthand to and all three conditions together. Note that we don't have to provide
+    all three conditions when use it: providing one or two conditions work as well.
+    
+    `bint` type is used for C boolean values (int with 0/non-0 values for False/True)
+    
+    Args:
+        a:  condition 1
+        b:  condition 2
+        c:  condition 3
+
+    Returns:
+        int
+
+    """
     return (a and b) and c
 
 

@@ -108,8 +108,24 @@ class AsyncDisk(object):
         synced = self._mach.create_synced()
         self._write(synced, bid, data, guard)
 
-    # flush is a full barrier
     def flush(self):
+        """
+        flush is a full barrier
+
+        hzy: barrier is a way to force the ordering of the writes. In other words,
+        when flush() completes, all writes issued before the barrier will reach disk
+        before any writes issued after the barrier (i.e. flush()). Barrier is a very
+        common concept in computer science.
+
+        - Memory barrier: https://en.wikipedia.org/wiki/Memory_barrier
+        - Barrier (computer science): https://en.wikipedia.org/wiki/Barrier_(computer_science)
+        - Barrier in os setting: OSTEP Chapter 42 "ASIDE: FORCING WRITES TO DISK"
+
+        Returns:
+            None
+
+        """
+        #TODO: hzy: here is the link to the diskspec.py (the link to the specification of the solver)?
         on = self._mach.create_on(self._dirty)
         if self._docache:
             self._disk = If(on, self._disk, self._cache)
@@ -220,8 +236,8 @@ class MultiTxnDisk(object):
                 self._disks[dev] = self._disks[dev].update(lba, data, on)
             else:
                 for idev in range(len(self._disks)):
-                    self._caches[idev] = self._caches[idev].update(lba, data, dev==idev)
-                    self._disks[idev] = self._disks[idev].update(lba, data, on, dev==idev)
+                    self._caches[idev] = self._caches[idev].update(lba, data, dev == idev)
+                    self._disks[idev] = self._disks[idev].update(lba, data, on, dev == idev)
 
     def read(self, dev, bid):
         return self._caches[dev](bid)
@@ -238,6 +254,18 @@ class MultiTxnDisk(object):
 
 class Stat(object):
     def __init__(self, size, mtime, mode, nlink=0):
+        """ Stat for a given object (i.e. Inode fields)
+
+        Note:
+            This mimics Ext2 Inode, which can be checked
+            OSTEP Chapter 40 Figure 40.1
+
+        Args:
+            size: how many bytes are in this file?
+            mtime: what time was this file last modified?
+            mode: can this file be read/written/executed?
+            nlink: how many hard links are there to this file?
+        """
         self.size = size
         self.mtime = mtime
         self.mode = mode
@@ -435,4 +463,3 @@ class Allocator32(object):
 
     def alloc(self):
         return BitVec(fresh_name('alloc'), 32)
-

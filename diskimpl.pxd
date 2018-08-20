@@ -3,6 +3,27 @@ from libc.string cimport memcpy
 
 # Extract returns the same size type..
 cpdef inline uint64_t Extract(int hi, int lo, uint64_t val):
+    """
+    hzy: Extract the bits for the given range [lo, hi] from val
+    
+    Example:
+        
+    - val = 0110, range: [0,1] -> return: 10 
+    
+    idx  3210
+    val  0110
+    
+    - val = 0111, range: [0,3] -> return: 111
+    
+    Args:
+        hi: the upper bound of the range
+        lo: the lower bound of the range
+        val: the bits to be extracted from
+
+    Returns:
+        The extracted bits
+
+    """
     return val >> lo & ((<uint64_t>1 << (hi - lo + 1)) - <uint64_t>1)
 
 cpdef inline uint64_t USub(uint64_t a, uint64_t b):
