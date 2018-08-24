@@ -41,15 +41,22 @@
 
 
 <div class="viewcode-block" id="LFS"><a class="viewcode-back" href="../lfs.html#lfs.LFS">[docs]</a><span class="k">class</span> <span class="nc">LFS</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="c1"># hzy: the block address of the superblock on the disk</span>
     <span class="n">SUPERBLOCK</span> <span class="o">=</span> <span class="mi">0</span>
 
+    <span class="c1"># hzy: address (i.e. offset) in the superblock; number on this address</span>
+    <span class="c1"># keeps track of the disk address of the next free block on the disk</span>
     <span class="n">SB_OFF_BALLOC</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># hzy: address (i.e. offset) in the superblock; number on this address</span>
+    <span class="c1"># keeps track of the disk address of the next free inode block</span>
     <span class="n">SB_OFF_IALLOC</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="c1"># hzy: offset inside the superblock that stores the beginning disk address</span>
-    <span class="c1"># of the imap</span>
+    <span class="c1"># hzy: offset inside the superblock that stores the disk address</span>
+    <span class="c1"># of the latest imap block</span>
     <span class="n">SB_OFF_IMAP</span> <span class="o">=</span> <span class="mi">2</span>
 
+    <span class="c1"># hzy: offset of the block that contains &quot;mtime&quot; field of the inode</span>
     <span class="n">I_OFF_MTIME</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># hzy: offset of the block that contains &quot;mode&quot; field of the inode</span>
     <span class="n">I_OFF_MODE</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">I_OFF_DATA</span> <span class="o">=</span> <span class="mi">4</span>
     
@@ -60,11 +67,22 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_imap</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="LFS.read"><a class="viewcode-back" href="../lfs.html#lfs.LFS.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ino</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Given a inode number, read the corresponding inode block from the</span>
+<span class="sd">        disk.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ino: inode number</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            block we read from the disk</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_begin</span><span class="p">()</span>
         <span class="c1"># hzy: we get the disk address of the given inode number `ino`</span>
         <span class="n">bid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imap</span><span class="p">[</span><span class="n">ino</span><span class="p">]</span>
         <span class="c1"># hzy: we fetch the block indicated by the address `bid`</span>
         <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">bid</span><span class="p">)</span>
+        <span class="c1"># hzy: we reset self._imap and self._sb to None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_commit</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">r</span></div>
 
@@ -79,49 +97,109 @@
         <span class="c1"># input and produces the disk address of the most recent version of the inode.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sb</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">SB_OFF_IMAP</span><span class="p">])</span>
 
-    <span class="k">def</span> <span class="nf">_balloc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LFS._balloc"><a class="viewcode-back" href="../lfs.html#lfs.LFS._balloc">[docs]</a>    <span class="k">def</span> <span class="nf">_balloc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the disk address of the next free block.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            the disk address of the next free block.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sb</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">SB_OFF_BALLOC</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sb</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">SB_OFF_BALLOC</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="c1"># Allocator returned a new block</span>
         <span class="n">assertion</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
 
-        <span class="k">return</span> <span class="n">a</span>
+        <span class="k">return</span> <span class="n">a</span></div>
 
-    <span class="k">def</span> <span class="nf">_ialloc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LFS._ialloc"><a class="viewcode-back" href="../lfs.html#lfs.LFS._ialloc">[docs]</a>    <span class="k">def</span> <span class="nf">_ialloc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the disk address of the next free inode block</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            the disk address of the next free inode block</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sb</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">SB_OFF_IALLOC</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sb</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">SB_OFF_IALLOC</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="c1"># we have a free inode..</span>
         <span class="n">assertion</span><span class="p">(</span><span class="n">a</span> <span class="o">&lt;</span> <span class="mi">512</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">a</span>
+        <span class="k">return</span> <span class="n">a</span></div>
 
-    <span class="k">def</span> <span class="nf">_commit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">write</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="LFS._commit"><a class="viewcode-back" href="../lfs.html#lfs.LFS._commit">[docs]</a>    <span class="k">def</span> <span class="nf">_commit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">write</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        We perform a series of actions when write=True.</span>
+<span class="sd">        When write=False, we simply set the in-memory superblock and imap to None</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            write: whether we write (True) or read (False)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sb</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imap</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="n">write</span><span class="p">:</span>
+            <span class="c1"># hzy: we get the disk address of the next free block</span>
             <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_balloc</span><span class="p">()</span>
+            <span class="c1"># hzy: we write current imap to the free block</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imap</span><span class="p">)</span>
+            <span class="c1"># hzy: we flush the previous write to the disk</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            <span class="c1"># hzy: we update the disk address of the latest imap block inside the superblock</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_sb</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">SB_OFF_IMAP</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
+            <span class="c1"># hzy: we write the superblock back to the disk</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">SUPERBLOCK</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sb</span><span class="p">)</span>
+            <span class="c1"># hzy: we flush the previous write to the disk</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_sb</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_imap</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_imap</span> <span class="o">=</span> <span class="kc">None</span></div>
 
-    <span class="k">def</span> <span class="nf">_set_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ino</span><span class="p">,</span> <span class="n">bid</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_imap</span><span class="p">[</span><span class="n">Extract</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ino</span><span class="p">)]</span> <span class="o">=</span> <span class="n">bid</span>
+<div class="viewcode-block" id="LFS._set_map"><a class="viewcode-back" href="../lfs.html#lfs.LFS._set_map">[docs]</a>    <span class="k">def</span> <span class="nf">_set_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ino</span><span class="p">,</span> <span class="n">bid</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;add ino - bid relation into imap</span>
 
-    <span class="k">def</span> <span class="nf">_get_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ino</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imap</span><span class="p">[</span><span class="n">Extract</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ino</span><span class="p">)]</span>
+<span class="sd">        Args:</span>
+<span class="sd">            ino: inode number</span>
+<span class="sd">            bid: disk address</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_imap</span><span class="p">[</span><span class="n">Extract</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ino</span><span class="p">)]</span> <span class="o">=</span> <span class="n">bid</span></div>
+
+<div class="viewcode-block" id="LFS._get_map"><a class="viewcode-back" href="../lfs.html#lfs.LFS._get_map">[docs]</a>    <span class="k">def</span> <span class="nf">_get_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ino</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the disk address of the inode block for the given ino</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ino: inode number</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            disk address of the inode block</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imap</span><span class="p">[</span><span class="n">Extract</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ino</span><span class="p">)]</span></div>
 
     <span class="c1">########</span>
 
 <div class="viewcode-block" id="LFS.dir_lookup"><a class="viewcode-back" href="../lfs.html#lfs.LFS.dir_lookup">[docs]</a>    <span class="k">def</span> <span class="nf">dir_lookup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">blk</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Lookup the inode number given the blk and the name</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            blk: the block</span>
+<span class="sd">            name: the name</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            inode number</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># hzy: ENOENT means &quot;Error NO ENTry&quot;</span>
         <span class="n">res</span> <span class="o">=</span> <span class="o">-</span><span class="n">errno</span><span class="o">.</span><span class="n">ENOENT</span>
+        <span class="c1"># TODO: hzy: why 2?</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
             <span class="n">oname</span> <span class="o">=</span> <span class="n">blk</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">I_OFF_DATA</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]</span>
             <span class="n">oino</span> <span class="o">=</span> <span class="n">blk</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">I_OFF_DATA</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
@@ -130,18 +208,29 @@
         <span class="k">return</span> <span class="n">res</span></div>
 
 <div class="viewcode-block" id="LFS.dir_find_empty"><a class="viewcode-back" href="../lfs.html#lfs.LFS.dir_find_empty">[docs]</a>    <span class="k">def</span> <span class="nf">dir_find_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">blk</span><span class="p">):</span>
+        <span class="c1"># hzy: ENOSPC means &quot;No space left on device&quot;</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">BitVecVal</span><span class="p">(</span><span class="o">-</span><span class="n">errno</span><span class="o">.</span><span class="n">ENOSPC</span><span class="p">,</span> <span class="mi">64</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
             <span class="n">res</span> <span class="o">=</span> <span class="n">If</span><span class="p">(</span><span class="n">blk</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">I_OFF_DATA</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">res</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">res</span></div>
 
 <div class="viewcode-block" id="LFS.get_attr"><a class="viewcode-back" href="../lfs.html#lfs.LFS.get_attr">[docs]</a>    <span class="k">def</span> <span class="nf">get_attr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ino</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the attributes of the inode</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            ino: inode number</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            attributes</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">Stat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_begin</span><span class="p">()</span>
 
         <span class="n">blk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_map</span><span class="p">(</span><span class="n">ino</span><span class="p">)</span>
         <span class="n">blk</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">blk</span><span class="p">)</span>
+        <span class="c1"># hzy: as mentioned in the paper, files are zero-sized (no read, write, or unlink)</span>
         <span class="n">s</span><span class="o">.</span><span class="n">bsize</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">s</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">blk</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">I_OFF_MODE</span><span class="p">]</span>
         <span class="n">s</span><span class="o">.</span><span class="n">mtime</span> <span class="o">=</span> <span class="n">blk</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">I_OFF_MTIME</span><span class="p">]</span>
@@ -151,6 +240,16 @@
         <span class="k">return</span> <span class="n">s</span></div>
 
 <div class="viewcode-block" id="LFS.lookup"><a class="viewcode-back" href="../lfs.html#lfs.LFS.lookup">[docs]</a>    <span class="k">def</span> <span class="nf">lookup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Look up the inode number of the name, which should be under the parent</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent: the parent name</span>
+<span class="sd">            name: the name which its inode number we are interested in</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            the inode number</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_begin</span><span class="p">()</span>
 
         <span class="n">parent_blkno</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_map</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
@@ -161,9 +260,33 @@
         <span class="k">return</span> <span class="n">ino</span></div>
 
 <div class="viewcode-block" id="LFS.exists"><a class="viewcode-back" href="../lfs.html#lfs.LFS.exists">[docs]</a>    <span class="k">def</span> <span class="nf">exists</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Check if name is under parent</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent: the parent name</span>
+<span class="sd">            name: the name</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LFS.mknod"><a class="viewcode-back" href="../lfs.html#lfs.LFS.mknod">[docs]</a>    <span class="k">def</span> <span class="nf">mknod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">mtime</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Add a file to a directory</span>
+
+<span class="sd">        Described in paper section 2.2</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent: parent directory</span>
+<span class="sd">            name: name of the file</span>
+<span class="sd">            mode: mode of the file</span>
+<span class="sd">            mtime: modified time of the file</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            inode number if everything works fine.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># check if the file exists</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
             <span class="n">assertion</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
@@ -207,25 +330,41 @@
         <span class="k">return</span> <span class="n">ino</span></div>
 
 <div class="viewcode-block" id="LFS.crash"><a class="viewcode-back" href="../lfs.html#lfs.LFS.crash">[docs]</a>    <span class="k">def</span> <span class="nf">crash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mach</span><span class="p">):</span>
+        <span class="c1"># TODO: hzy: how does this function work?</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">crash</span><span class="p">(</span><span class="n">mach</span><span class="p">))</span></div></div>
 
 
 <div class="viewcode-block" id="mkfs"><a class="viewcode-back" href="../lfs.html#lfs.mkfs">[docs]</a><span class="k">def</span> <span class="nf">mkfs</span><span class="p">(</span><span class="n">disk</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Initialize the disk into a state that contains an empty root directory</span>
+<span class="sd">    (Figure 2.a of the paper)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        disk:</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># hzy: as shown in &quot;lfs.pxd&quot;, `cdef AsyncDisk _disk`. Thus</span>
     <span class="c1"># here `_disk` type is `AsyncDisk` from &quot;diskimpl.pyx&quot;</span>
     <span class="c1"># We read the first block (indicated by 0) from the disk and treat it as the superblock</span>
-    <span class="n">sb</span> <span class="o">=</span> <span class="n">disk</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">sb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="c1"># TODO: hzy: ???</span>
+    <span class="n">sb</span> <span class="o">=</span> <span class="n">disk</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">LFS</span><span class="o">.</span><span class="n">SUPERBLOCK</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">sb</span><span class="p">[</span><span class="n">LFS</span><span class="o">.</span><span class="n">SB_OFF_BALLOC</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># hzy: we allocate 3 blocks when initialize the file system:</span>
+        <span class="c1"># superblock, inode, and imap. Thus, the disk address of the next free block is 3</span>
         <span class="n">sb</span><span class="p">[</span><span class="n">LFS</span><span class="o">.</span><span class="n">SB_OFF_BALLOC</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="c1"># hzy: disk address of the next free inode block (i.e. disk address 2)</span>
+        <span class="c1"># TODO: from the code here, figure 2.a seems incorrect: b1 should contain imap block, b2 should contain inode block</span>
         <span class="n">sb</span><span class="p">[</span><span class="n">LFS</span><span class="o">.</span><span class="n">SB_OFF_IALLOC</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
-        <span class="c1"># hzy: disk address of the most recent version of imap (block 1)</span>
+        <span class="c1"># hzy: disk address of the 1st imap block (i.e. disk address 1)</span>
         <span class="n">sb</span><span class="p">[</span><span class="n">LFS</span><span class="o">.</span><span class="n">SB_OFF_IMAP</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="c1"># hzy: write superblock to the disk at the address 0</span>
         <span class="n">disk</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sb</span><span class="p">)</span>
 
         <span class="n">imap</span> <span class="o">=</span> <span class="n">ConstBlock</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-        <span class="c1"># TODO: hzy: why 2?</span>
+        <span class="c1"># hzy: imap is a structure that takes an inode number as input and</span>
+        <span class="c1"># produces the disk address of the most recent version of the inode.</span>
+        <span class="c1"># Here, `1` means the inode number 1, `2` means inode 1 resides inside block 2 of the disk.</span>
         <span class="n">imap</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
         <span class="n">disk</span><span class="o">.</span><span class="n">_disk</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">imap</span><span class="p">)</span></div>
 

@@ -208,8 +208,8 @@ class LFS(object):
         """Look up the inode number of the name, which should be under the parent
 
         Args:
-            parent: the parent name
-            name: the name which its inode number we are interested in
+            parent (int): the parent name
+            name (int): the name which its inode number we are interested in
 
         Returns:
             the inode number
@@ -345,7 +345,7 @@ if __name__ == '__main__':
     lfs = create_lfs()
 
     print lfs.lookup(1, 16)
-    print lfs.get_attr(4)
-    print lfs.mknod(1, 20, 2000, 2000)
+    # print lfs.get_attr(4)
+    # print lfs.mknod(1, 20, 2000, 2000)
     print lfs.lookup(1, 20)
-    print lfs.get_attr(4)
+    # print lfs.get_attr(4)

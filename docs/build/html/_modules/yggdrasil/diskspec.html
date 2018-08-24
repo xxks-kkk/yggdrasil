@@ -143,8 +143,24 @@
         <span class="n">synced</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mach</span><span class="o">.</span><span class="n">create_synced</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_write</span><span class="p">(</span><span class="n">synced</span><span class="p">,</span> <span class="n">bid</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">guard</span><span class="p">)</span></div>
 
-    <span class="c1"># flush is a full barrier</span>
 <div class="viewcode-block" id="AsyncDisk.flush"><a class="viewcode-back" href="../../yggdrasil.html#yggdrasil.diskspec.AsyncDisk.flush">[docs]</a>    <span class="k">def</span> <span class="nf">flush</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        flush is a full barrier</span>
+
+<span class="sd">        hzy: barrier is a way to force the ordering of the writes. In other words,</span>
+<span class="sd">        when flush() completes, all writes issued before the barrier will reach disk</span>
+<span class="sd">        before any writes issued after the barrier (i.e. flush()). Barrier is a very</span>
+<span class="sd">        common concept in computer science.</span>
+
+<span class="sd">        - Memory barrier: https://en.wikipedia.org/wiki/Memory_barrier</span>
+<span class="sd">        - Barrier (computer science): https://en.wikipedia.org/wiki/Barrier_(computer_science)</span>
+<span class="sd">        - Barrier in os setting: OSTEP Chapter 42 &quot;ASIDE: FORCING WRITES TO DISK&quot;</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1">#TODO: hzy: here is the link to the diskspec.py (the link to the specification of the solver)?</span>
         <span class="n">on</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mach</span><span class="o">.</span><span class="n">create_on</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dirty</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_docache</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_disk</span> <span class="o">=</span> <span class="n">If</span><span class="p">(</span><span class="n">on</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_disk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">)</span>
@@ -255,8 +271,8 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_disks</span><span class="p">[</span><span class="n">dev</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_disks</span><span class="p">[</span><span class="n">dev</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">lba</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">on</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">idev</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_disks</span><span class="p">)):</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_caches</span><span class="p">[</span><span class="n">idev</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_caches</span><span class="p">[</span><span class="n">idev</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">lba</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">dev</span><span class="o">==</span><span class="n">idev</span><span class="p">)</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">_disks</span><span class="p">[</span><span class="n">idev</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_disks</span><span class="p">[</span><span class="n">idev</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">lba</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">on</span><span class="p">,</span> <span class="n">dev</span><span class="o">==</span><span class="n">idev</span><span class="p">)</span></div>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_caches</span><span class="p">[</span><span class="n">idev</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_caches</span><span class="p">[</span><span class="n">idev</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">lba</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">dev</span> <span class="o">==</span> <span class="n">idev</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_disks</span><span class="p">[</span><span class="n">idev</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_disks</span><span class="p">[</span><span class="n">idev</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">lba</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">on</span><span class="p">,</span> <span class="n">dev</span> <span class="o">==</span> <span class="n">idev</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="MultiTxnDisk.read"><a class="viewcode-back" href="../../yggdrasil.html#yggdrasil.diskspec.MultiTxnDisk.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dev</span><span class="p">,</span> <span class="n">bid</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_caches</span><span class="p">[</span><span class="n">dev</span><span class="p">](</span><span class="n">bid</span><span class="p">)</span></div>
@@ -273,6 +289,18 @@
 
 <div class="viewcode-block" id="Stat"><a class="viewcode-back" href="../../yggdrasil.html#yggdrasil.diskspec.Stat">[docs]</a><span class="k">class</span> <span class="nc">Stat</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">mtime</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">nlink</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Stat for a given object (i.e. Inode fields)</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            This mimics Ext2 Inode, which can be checked</span>
+<span class="sd">            OSTEP Chapter 40 Figure 40.1</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            size: how many bytes are in this file?</span>
+<span class="sd">            mtime: what time was this file last modified?</span>
+<span class="sd">            mode: can this file be read/written/executed?</span>
+<span class="sd">            nlink: how many hard links are there to this file?</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mtime</span> <span class="o">=</span> <span class="n">mtime</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span>
@@ -470,7 +498,6 @@
 
 <div class="viewcode-block" id="Allocator32.alloc"><a class="viewcode-back" href="../../yggdrasil.html#yggdrasil.diskspec.Allocator32.alloc">[docs]</a>    <span class="k">def</span> <span class="nf">alloc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">BitVec</span><span class="p">(</span><span class="n">fresh_name</span><span class="p">(</span><span class="s1">&#39;alloc&#39;</span><span class="p">),</span> <span class="mi">32</span><span class="p">)</span></div></div>
-
 </pre></div>
 
           </div>

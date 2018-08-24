@@ -1,6 +1,13 @@
 from libc.stdint cimport uint64_t
 from libc.string cimport memcpy
 
+# .pxd vs. .pyx
+# hzy: A .pxd file is a declaration file, and is used to declare classes, methods, etc. in a C extension module,
+# (typically as implemented in a .pyx file of the same name).
+# It can contain declarations only, i.e. no executable statements.
+# One can cimport things from .pxd files just as one would import things in Python
+# see: https://github.com/cython/cython/wiki/FAQ#what-is-the-difference-between-a-pxd-and-pxi-file-when-should-either-be-used
+
 # Extract returns the same size type..
 cpdef inline uint64_t Extract(int hi, int lo, uint64_t val):
     """

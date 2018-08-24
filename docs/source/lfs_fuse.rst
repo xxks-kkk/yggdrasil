@@ -36,5 +36,5 @@ The main function in ``lfs_fuse.pyx`` is
 .. _lfs_fuse-mkstat:
 .. py:function:: cdef int mkstat(fuse_ino_t ino, struct_stat *stbuf)
 
-    Inside ``stat = inode_obj.get_attr(ino)``, :meth:`lfs.LFS.get_attr` is invoked, which comes from
+    Inside ``stat = inode_obj.get_attr(ino)``, :meth:`~lfs.LFS.get_attr` is invoked, which comes from
     ``lfs.py``.

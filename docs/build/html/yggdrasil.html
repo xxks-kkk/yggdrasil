@@ -79,7 +79,25 @@
 <dl class="method">
 <dt id="yggdrasil.diskspec.AsyncDisk.flush">
 <code class="descname">flush</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/yggdrasil/diskspec.html#AsyncDisk.flush"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#yggdrasil.diskspec.AsyncDisk.flush" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>flush is a full barrier</p>
+<p>hzy: barrier is a way to force the ordering of the writes. In other words,
+when flush() completes, all writes issued before the barrier will reach disk
+before any writes issued after the barrier (i.e. flush()). Barrier is a very
+common concept in computer science.</p>
+<ul class="simple">
+<li>Memory barrier: <a class="reference external" href="https://en.wikipedia.org/wiki/Memory_barrier">https://en.wikipedia.org/wiki/Memory_barrier</a></li>
+<li>Barrier (computer science): <a class="reference external" href="https://en.wikipedia.org/wiki/Barrier_(computer_science">https://en.wikipedia.org/wiki/Barrier_(computer_science</a>)</li>
+<li>Barrier in os setting: OSTEP Chapter 42 “ASIDE: FORCING WRITES TO DISK”</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="yggdrasil.diskspec.AsyncDisk.read">

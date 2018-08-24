@@ -76,6 +76,88 @@
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="lfs.LFS._balloc">
+<code class="descname">_balloc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lfs.html#LFS._balloc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lfs.LFS._balloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the disk address of the next free block.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the disk address of the next free block.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lfs.LFS._commit">
+<code class="descname">_commit</code><span class="sig-paren">(</span><em>write=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lfs.html#LFS._commit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lfs.LFS._commit" title="Permalink to this definition">¶</a></dt>
+<dd><p>We perform a series of actions when write=True.
+When write=False, we simply set the in-memory superblock and imap to None</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>write</strong> – whether we write (True) or read (False)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lfs.LFS._get_map">
+<code class="descname">_get_map</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lfs.html#LFS._get_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lfs.LFS._get_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the disk address of the inode block for the given ino</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ino</strong> – inode number</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">disk address of the inode block</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lfs.LFS._ialloc">
+<code class="descname">_ialloc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lfs.html#LFS._ialloc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lfs.LFS._ialloc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the disk address of the next free inode block</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the disk address of the next free inode block</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lfs.LFS._set_map">
+<code class="descname">_set_map</code><span class="sig-paren">(</span><em>ino</em>, <em>bid</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lfs.html#LFS._set_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lfs.LFS._set_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>add ino - bid relation into imap</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ino</strong> – inode number</li>
+<li><strong>bid</strong> – disk address</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="lfs.LFS.crash">
 <code class="descname">crash</code><span class="sig-paren">(</span><em>mach</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lfs.html#LFS.crash"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lfs.LFS.crash" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -88,32 +170,122 @@
 <dl class="method">
 <dt id="lfs.LFS.dir_lookup">
 <code class="descname">dir_lookup</code><span class="sig-paren">(</span><em>blk</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lfs.html#LFS.dir_lookup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lfs.LFS.dir_lookup" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Lookup the inode number given the blk and the name</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>blk</strong> – the block</li>
+<li><strong>name</strong> – the name</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">inode number</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="lfs.LFS.exists">
 <code class="descname">exists</code><span class="sig-paren">(</span><em>parent</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lfs.html#LFS.exists"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lfs.LFS.exists" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Check if name is under parent</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>parent</strong> – the parent name</li>
+<li><strong>name</strong> – the name</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="lfs.LFS.get_attr">
 <code class="descname">get_attr</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lfs.html#LFS.get_attr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lfs.LFS.get_attr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get the attributes of the inode</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ino</strong> – inode number</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">attributes</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="lfs.LFS.lookup">
 <code class="descname">lookup</code><span class="sig-paren">(</span><em>parent</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lfs.html#LFS.lookup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lfs.LFS.lookup" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Look up the inode number of the name, which should be under the parent</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>parent</strong> – the parent name</li>
+<li><strong>name</strong> – the name which its inode number we are interested in</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the inode number</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="lfs.LFS.mknod">
 <code class="descname">mknod</code><span class="sig-paren">(</span><em>parent</em>, <em>name</em>, <em>mode</em>, <em>mtime</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lfs.html#LFS.mknod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lfs.LFS.mknod" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Add a file to a directory</p>
+<p>Described in paper section 2.2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>parent</strong> – parent directory</li>
+<li><strong>name</strong> – name of the file</li>
+<li><strong>mode</strong> – mode of the file</li>
+<li><strong>mtime</strong> – modified time of the file</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">inode number if everything works fine.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="lfs.LFS.read">
 <code class="descname">read</code><span class="sig-paren">(</span><em>ino</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lfs.html#LFS.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lfs.LFS.read" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Given a inode number, read the corresponding inode block from the
+disk.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ino</strong> – inode number</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">block we read from the disk</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -125,7 +297,19 @@
 <dl class="function">
 <dt id="lfs.mkfs">
 <code class="descclassname">lfs.</code><code class="descname">mkfs</code><span class="sig-paren">(</span><em>disk</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lfs.html#mkfs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lfs.mkfs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Initialize the disk into a state that contains an empty root directory
+(Figure 2.a of the paper)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>disk</strong> – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 
