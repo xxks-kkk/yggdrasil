@@ -174,7 +174,9 @@ class LFS(object):
 
     def dir_find_empty(self, blk):
         # hzy: ENOSPC means "No space left on device"
-        res = BitVecVal(-errno.ENOSPC, 64)
+        # FIX: hzy: originally, "-errno.ENOSPC"
+        res = BitVecVal(errno.ENOSPC, 64)
+        # TODO: hzy: why 2?
         for i in range(2):
             res = If(blk[self.I_OFF_DATA + i * 2] == 0, i, res)
         return res
@@ -345,7 +347,7 @@ if __name__ == '__main__':
     lfs = create_lfs()
 
     print lfs.lookup(1, 16)
-    # print lfs.get_attr(4)
-    # print lfs.mknod(1, 20, 2000, 2000)
+    print lfs.get_attr(4)
+    print lfs.mknod(1, 20, 2000, 2000)
     print lfs.lookup(1, 20)
-    # print lfs.get_attr(4)
+    print lfs.get_attr(4)

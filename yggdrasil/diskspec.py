@@ -275,6 +275,11 @@ class Stat(object):
     def bsize(self):
         return Extract(63, 32, self.size)
 
+    @bsize.setter
+    def bsize(self, val):
+        # FIX: hzy: we simply ignore the block size (due to the lfs.py)
+        pass
+
     @property
     def fsize(self):
         return Extract(31, 0, self.size)
